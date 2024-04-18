@@ -52,5 +52,53 @@ public class App {
         } else {
             System.out.println(player2.getName());
         }
+
+        System.out.println("Now its your turn to play, dr L! Lets make a player for you.");
+        RPSPlayer drL = new RPSPlayer("Dr L", "CS");
+        System.out.println("Here is your player:");
+        System.out.println(drL);
+        System.out.println("You'll play against me:");
+        RPSPlayer me = new RPSPlayer("Fulton", "CS");
+        System.out.println(me);
+        System.out.println("You can pick 3 implements");
+        System.out.println("0: Rock 1: Paper 2: Scissors");
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Pick an implement:");
+            int implement = Integer.parseInt(System.console().readLine());
+            try {
+                drL.equip(implement);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid implement, try again");
+                i--;
+            }
+        }
+        System.out.println("And I'll pick 3 random implements");
+        for (int i = 0; i < 3; i++) {
+            me.equip(random.nextInt(3));
+        }
+        System.out.println("Here are the players with their implements:");
+        System.out.println(drL);
+        System.out.println(me);
+        System.out.println("Lets fight!");
+        int drLWins = 0;
+        int meWins = 0;
+        while (drL.hasImplements() && me.hasImplements()) {
+            if (drL.defeats(me)) {
+                drLWins++;
+            } else {
+                meWins++;
+            }
+        }
+        System.out.println("Dr L wins: " + drLWins);
+        System.out.println("Fulton wins: " + meWins);
+        System.out.println("Here are the players after the fight:");
+        System.out.println(drL);
+        System.out.println(me);
+        System.out.print("Congratulations to the winner! ");
+        if (drLWins > meWins) {
+            System.out.println(drL.getName());
+        } else {
+            System.out.println(me.getName());
+        }
     }
 }
